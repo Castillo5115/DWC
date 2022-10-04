@@ -22,9 +22,26 @@ document.write('</table>');
 // Crear array bidimensional para guardar las minas
 
 let arrayTablero = [];
-for(let i = 0; i < numMinas; i++){
+
+let contadorMinas = 0;
+
+for (let numFila = 0; numFila < arrayTablero.length; numFila++) {
+    const element = array[numFila];
+    
+}
+
+while(contadorMinas < numMinas){
     posFila = Math.floor(Math.random()*numFilas - 1);
-    //arrayTablero[posFila][posColumna] = "Mina";
+    posColumna = Math.floor(Math.random()*numColumnas - 1);
+    
+    if (arrayTablero[posFila][posColumna] != "Mina"){
+        
+        arrayTablero[posFila][posColumna] = "Mina";
+        contadorMinas ++;
+    
+    }
+    
+    document.write(arrayTablero);
     console.log(arrayTablero);
 }
 
