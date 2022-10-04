@@ -1,13 +1,33 @@
-document.write('<h1 id="titulo">Busca Minas</h1>');
-document.write('<table>');
-document.write('<tr>');
+let numFilas = prompt('¿Cuantas filas quieres?');
+let numColumnas = prompt('¿Cuantas columnas quieres?');
+let numMinas = prompt('¿Cuantas minas quieres q haiga?');
 
-for (let i = 0; i < 5; i++) {
-    document.write('<td></td>');
+// Titulo de la página
+document.write('<h1 id="titulo">Busca Minas</h1>');
+
+
+//Creamos el tablero
+document.write('<table>');
+
+for (let i = 0; i < numFilas; i++) {
+        document.write('<tr>');
+        for (let z = 0; z < numColumnas; z++) {
+            document.write('<td></td>');            
+        }
+        document.write('</tr>');
 }
 
-document.write('</tr>');
 document.write('</table>');
+
+// Crear array bidimensional para guardar las minas
+
+let arrayTablero = [];
+for(let i = 0; i < numMinas; i++){
+    posFila = Math.floor(Math.random()*numFilas - 1);
+    //arrayTablero[posFila][posColumna] = "Mina";
+    console.log(arrayTablero);
+}
+
 
 
 
