@@ -45,8 +45,8 @@ while(contadorMinas < numMinas){
     console.log(arrayTablero);
 }
 
-
-
+console.log(arrayTablero);
+console.log(contadorMinas);
 
 /* <h1 id="titulo">Busca Minas</h1>
     <div class="objeto">
