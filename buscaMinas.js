@@ -25,9 +25,12 @@ let arrayTablero = [];
 
 let contadorMinas = 0;
 
-for (let numFila = 0; numFila < arrayTablero.length; numFila++) {
-    const element = array[numFila];
-    
+for(let fila = 0; fila < numFilas; fila++){
+
+    for(let columna = 0; columna < numColumnas; columna++){
+        arrayTablero[fila][columna] = '';
+    }
+
 }
 
 while(contadorMinas < numMinas){
