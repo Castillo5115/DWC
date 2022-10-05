@@ -56,7 +56,7 @@ let columna = 1;
 let minasAlrededor = 0;
 for (let cFila = fila - 1; cFila < fila  +1; cFila++) {
     for (let cColumna = columna -1; cColumna <= columna + 1 ; cColumna++) {
-        if(cFila < 0 || cColumna < 0 || cFila > numFilas || cColumna > numColumnas){
+        if(cFila >= 0 || cColumna >= 0 || cFila < numFilas || cColumna < numColumnas){
             if(arraytablero[cFila][cColumna] == "Mina"){
                 minasAlerededor++;
             }
