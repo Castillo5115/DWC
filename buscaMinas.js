@@ -53,9 +53,9 @@ for (let fila = 0; fila < maxFilas; fila++) {
     for (let columna = 0; columna < maxColumnas; columna++) {
         numMinasAlrededor = 0;
         if (arrayTablero[fila][columna] != 'MINA') {
-            for (let cFila = fila - 1; cFila < fila + 1; cFila++) {
+            for (let cFila = fila - 1; cFila < fila + 2; cFila++) {
                 if (cFila >= 0 && cFila < maxFilas) {
-                    for (let cColumna = columna - 1; cColumna < columna + 1; cColumna++) {
+                    for (let cColumna = columna - 1; cColumna < columna + 2; cColumna++) {
                         if (cColumna >= 0 && cColumna < maxColumnas &&
                             arrayTablero[cFila][cColumna] == 'MINA') {
                             numMinasAlrededor++;

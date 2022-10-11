@@ -4,11 +4,14 @@
 
 .tabla{
     margin: 0px auto;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 td{
     padding: 10px;
     text-align: center;
     border: 1px solid black;
+
     border-collapse: collapse;
 }
