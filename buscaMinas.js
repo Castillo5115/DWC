@@ -2,25 +2,15 @@ let maxFilas = prompt('¿Cuántas filas quieres?');
 let maxColumnas = prompt('¿Cuántas columnas quieres?');
 let numMinas = prompt('¿Cuántas minas quieres introducir?');
 
+let arrayTablero = [];
 
 // Creamos el tablero en html
 
-document.write('<table>');
-
-for (let i = 0; i < maxFilas; i++) {
-    document.write('<tr>');
-
-    for (let j = 0; j < maxColumnas; j++) {
-        document.write('<td></td>');
-    }
-
-    document.write('</tr>');
-}
-document.write('</table>');
-
-
 // Crear array bidimensional para guardar las minas
-let arrayTablero = [];
+
+
+
+function colocarMinas(array, filas, columnas){
 let contadorMinas = 0;
 
 for (let fila = 0; fila < maxFilas; fila++) {
@@ -46,6 +36,9 @@ while (contadorMinas < numMinas) {
     };
 };
 
+}
+
+function numerosAlrededor(filas, columnas){
 
 let numMinasAlrededor;
 
@@ -70,3 +63,24 @@ for (let fila = 0; fila < maxFilas; fila++) {
 }
 
     console.log(arrayTablero);
+}
+
+function crearTablero(tablero, numFilas, numcolumnas){
+
+    document.write('<table>');
+
+    for (let i = 0; i < maxFilas; i++) {
+        document.write('<tr>');
+    
+        for (let j = 0; j < maxColumnas; j++) {
+            document.write('<td>' + arrayTablero[i][j] + '</td>');
+        }
+    
+        document.write('</tr>');
+    }
+    document.write('</table>');
+
+}
+colocarMinas(arrayTablero, maxFilas, maxColumnas);
+numerosAlrededor(maxFilas, maxColumnas);
+crearTablero(arrayTablero, maxFilas, maxColumnas);

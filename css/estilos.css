@@ -1,17 +1,14 @@
 #titulo{
     text-align: center;
 }
-
-.tabla{
-    margin: 0px auto;
-    border: 1px solid black;
-    border-collapse: collapse;
+table
+{
+    float: center;
 }
-
 td{
     padding: 10px;
     text-align: center;
     border: 1px solid black;
-
+    padding: 30px;
     border-collapse: collapse;
 }
