@@ -4,12 +4,6 @@ let numMinas = prompt('¿Cuántas minas quieres introducir?');
 
 let arrayTablero = [];
 
-// Creamos el tablero en html
-
-// Crear array bidimensional para guardar las minas
-
-
-
 function colocarMinas(array, filas, columnas){
 let contadorMinas = 0;
 
