@@ -35,17 +35,48 @@ class Tablero {
         document.write('</table>');
     }
 
-    modificarFilas(nuevasFilas){
+    modificarFilas(nuevasFilas) {
+        // Modificar el número de filas y volver a crear el tablero con las filas nuevas
         this.filas = nuevasFilas;
+
         this.crearTablero();
     }
 
-    modificarColumnas(nuevasColumnas){
+    modificarColumnas(nuevasColumnas) {
+        // Modificar el número de columnas y volver a crear el tablero con las columnas nuevas
         this.columnas = nuevasColumnas;
+
         this.crearTablero();
     }
+
 
 }
 
-const buscaminas = new Tablero(4, 3);
-buscaminas.dibujarTablero();
+class Buscaminas extends Tablero {
+    constructor(filas, columnas, numMinas) {
+        super(filas, columnas);
+        this.numMinas = numMinas;
+
+        this.colocarMinas();
+    }
+
+    colocarMinas() {
+        let contadorMinas = 0;
+        let posFila;
+        let posColumna;
+
+
+        while (contadorMinas < this.numMinas) {
+            posFila = Math.floor(Math.random() * this.filas);
+            posColumna = Math.floor(Math.random() * this.columnas);
+
+            if (this.arrayTablero[posFila][posColumna] != 'MINA') {
+                this.arrayTablero[posFila][posColumna] = 'MINA';
+                contadorMinas++;
+            };
+        };
+    }
+}
+
+let buscaminas1 = new Buscaminas(5,5,5);
+console.log(buscaminas1.arrayTablero);
