@@ -4,7 +4,6 @@ class Tablero {
         this.columnas = columnas;
 
         this.crearTablero();
-
     }
 
     crearTablero() {
@@ -54,7 +53,6 @@ class Tablero {
 }
 
 class Buscaminas extends Tablero {
-    /*Constructor*/
     constructor(filas, columnas, numMinas) {
         super(filas, columnas);
         this.numMinas = numMinas;
@@ -62,7 +60,7 @@ class Buscaminas extends Tablero {
         this.colocarMinas();
         this.colocarNumMinas();
     }
-    /*Métodos*/
+
     colocarMinas() {
         let contadorMinas = 0;
         let posFila;
@@ -80,9 +78,9 @@ class Buscaminas extends Tablero {
         };
     }
 
-    colocarNumMinas(){
+    colocarNumMinas() {
         let numMinasAlrededor;
-    
+
         for (let fila = 0; fila < this.filas; fila++) {
             for (let columna = 0; columna < this.columnas; columna++) {
                 numMinasAlrededor = 0;
@@ -98,13 +96,12 @@ class Buscaminas extends Tablero {
                         }
                         this.arrayTablero[fila][columna] = numMinasAlrededor;
                     }
-        
                 }
             }
         }
     }
 }
 
-let buscaminas1 = new Buscaminas(4,4,4);
+let buscaminas1 = new Buscaminas(5, 5, 5);
 console.log(buscaminas1.arrayTablero);
 buscaminas1.dibujarTablero();
