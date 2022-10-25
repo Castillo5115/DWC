@@ -5,11 +5,27 @@ let array = [];
 let posFila;
 let posColumna;
 
-for (let fila = 0; fila < filas; fila++) {
+for (let fila = 0; fila <= filas; fila++) {
     array[fila] = new Array(columnas);
 
-    for (let columna = 0; columna < columnas; columna++) {
+    for (let columna = 0; columna <= columnas; columna++) {
         array[fila][columna] = '';
+    }
+}
+
+
+
+let contador = 0;
+
+for (let i = 0; i < filas; i++) {
+    for (let j = 0; j < columnas; j++) {
+        numero = Math.floor(Math.random()* 10 +1);
+        if (numero == array[i][j]) {
+            contador++;
+        }
+        if (contador < 2) {
+            array[i][j] = numero;
+        }
     }
 }
 
@@ -26,17 +42,3 @@ for (let i = 0; i < filas; i++) {
 }
 document.write('</table>');
 console.log(array);
-
-let contador = 0;
-
-for (let i = 0; i < filas; i++) {
-    for (let j = 0; j < columnas; j++) {
-        numero = Math.floor(Math.random()* 10);
-        if (numero == array[i][j]) {
-            contador++;
-        }
-        if (contador < 2) {
-            array[i][j] = numero;
-        }
-    }
-}
