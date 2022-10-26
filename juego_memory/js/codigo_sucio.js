@@ -20,9 +20,6 @@ let contador = 0;
 for (let i = 0; i < filas; i++) {
     for (let j = 0; j < columnas; j++) {
         numero = Math.floor(Math.random()* 10 +1);
-        if (numero == array[i][j]) {
-            contador++;
-        }
         if (contador < 2) {
             array[i][j] = numero;
         }
