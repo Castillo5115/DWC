@@ -2,8 +2,7 @@ let filas = prompt("Numero de filas:");
 let columnas = prompt("Numero de columnas:");
 let array = []; 
 
-let posFila;
-let posColumna;
+
 
 for (let fila = 0; fila <= filas; fila++) {
     array[fila] = new Array(columnas);
@@ -13,17 +12,28 @@ for (let fila = 0; fila <= filas; fila++) {
     }
 }
 
-
-
-let contador = 0;
-
-for (let i = 0; i < filas; i++) {
-    for (let j = 0; j < columnas; j++) {
-        numero = Math.floor(Math.random()* 10 +1);
-        if (contador < 2) {
-            array[i][j] = numero;
+let contador;
+let posFila;
+let posColumna;
+let array_numeros =[1,2,3,4,5,6,7,8,9,10];
+for (let i = 0; i <= filas; i++) {
+    contador = 0;
+    while(contador < 2){
+        posFila=Math.floor(Math.random()*filas);
+        posColumna = Math.floor(Math.random()*columnas);
+        if (array[posFila][posColumna] != '') {
+            while (array[posFila][posColumna] != '') {
+                posFila=Math.floor(Math.random()*filas);
+                posColumna = Math.floor(Math.random()*columnas);
+            }
+            array[posFila][posColumna] = array_numeros[i];
+            contador++;
+        }else{
+            array[posFila][posColumna] = array_numeros[i];
+            contador++;
         }
-    }
+    }   
+        
 }
 
 document.write('<table>');
