@@ -6,7 +6,7 @@ class Tablero{
         this.crearArray();
 
     }
-    crearTablero() {
+    crearArray() {
         let compatible = this.filas * this.columnas;
         if (compatible % 2 == 0) {
             this.array = [];    
