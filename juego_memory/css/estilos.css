@@ -5,7 +5,16 @@ table{
 td{
     border: 1px solid black;
     padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
-h1,h3{
+td:hover{
+    background-color: aqua;
+}
+td{
+    background-color: rgb(183, 241, 241);
+    color: rgb(0, 0, 0);
+}
+h1{
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
 }

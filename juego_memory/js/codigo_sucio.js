@@ -12,6 +12,17 @@ for (let fila = 0; fila <= filas; fila++) {
     }
 }
 
+let resutado;
+
+resutado = (filas * columnas)%2;
+
+if (resutado == 0){
+    document.write("Es par");
+}else{
+    alert("El numero de casillas debe ser par");
+    alert("Reinicia con F5");
+}
+
 let contador;
 let posFila;
 let posColumna;

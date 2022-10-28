@@ -7,20 +7,25 @@ class Tablero{
 
     }
     crearArray() {
-        let casillas = this.filas * this.columnas;
-        this.array = [];
-    
-        for (let fila = 0; fila < this.filas; fila++) {
-            if(this.filas >= 2 && this.columnas >= 2){
-                this.array[fila] = new Array(this.columnas);
-            }else{
-                alert("El tablero mínimo puede ser 2x2");
-                alert("Presiona F5 para reiniciar juego");
-            }
-            for (let columna = 0; columna < this.columnas; columna++) {
-                this.array[fila][columna] = '';
-            }
+        let compatible = this.filas * this.columnas;
+        if (compatible % 2 == 0) {
+            this.array = [];    
+            for (let fila = 0; fila < this.filas; fila++) {
+                if(this.filas >= 2 && this.columnas >= 2){
+                    this.array[fila] = new Array(this.columnas);
+                }else{
+                    alert("El tablero mínimo puede ser 2x2");
+                    alert("Presiona F5 para reiniciar juego");
+                }
+                for (let columna = 0; columna < this.columnas; columna++) {
+                    this.array[fila][columna] = '';
+                }
+            } 
+        }else{
+            alert("El número de casillas debe ser par");
+            alert("Presiona F5 para reiniciar juego");
         }
+        
     }
     pintarTablero(){
         document.write("<h1>" + "Memorium" + "</h1>");
@@ -35,8 +40,6 @@ class Tablero{
 
             document.write('</tr>');
         }
-        document.write('</table>');
-        document.write("<h3>" + "by Adrián Castillo López" + "</h3>");
     }
     iniciarMemorium(){
         let contador;
