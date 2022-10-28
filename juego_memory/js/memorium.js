@@ -17,6 +17,30 @@ class Tablero{
             }
         }
     }
+    iniciarMemorium(){
+        let contador;
+        let posFila;
+        let posColumna;
+        let array_numeros =[1,2,3,4,5,6,7,8,9,10];
+        for (let i = 0; i <= filas; i++) {
+            contador = 0;
+            while(contador < 2){
+                posFila=Math.floor(Math.random()*filas);
+                posColumna = Math.floor(Math.random()*columnas);
+                if (array[posFila][posColumna] != '') {
+                    while (array[posFila][posColumna] != '') {
+                        posFila=Math.floor(Math.random()*filas);
+                        posColumna = Math.floor(Math.random()*columnas);
+                    }
+                    array[posFila][posColumna] = array_numeros[i];
+                    contador++;
+                }else{
+                    array[posFila][posColumna] = array_numeros[i];
+                    contador++;
+                }
+            }       
+        }
+    }
     pintarTablero(){
         document.write("<h1>" + "Memorium" + "</h1>");
         document.write('<table>');
