@@ -15,8 +15,10 @@ for (let fila = 0; fila <= filas; fila++) {
 let contador;
 let posFila;
 let posColumna;
+let casillasLlenas = 0;
 let array_numeros =[1,2,3,4,5,6,7,8,9,10];
-for (let i = 0; i <= filas; i++) {
+let i = 0;
+while(casillasLlenas < (filas * columnas)){
     contador = 0;
     while(contador < 2){
         posFila=Math.floor(Math.random()*filas);
@@ -27,13 +29,18 @@ for (let i = 0; i <= filas; i++) {
                 posColumna = Math.floor(Math.random()*columnas);
             }
             array[posFila][posColumna] = array_numeros[i];
+            casillasLlenas++;
             contador++;
         }else{
             array[posFila][posColumna] = array_numeros[i];
+            casillasLlenas++;
             contador++;
         }
-    }   
-        
+    }
+    i++;
+    if (i == array_numeros.length) {
+        i = 0;
+    }
 }
 
 document.write('<table>');

@@ -10,10 +10,10 @@ class Tablero{
         this.array = [];
     
         for (let fila = 0; fila < this.filas; fila++) {
-            if (this.filas >= 2 && this.columnas >= 3) {
+            if(this.filas >= 2 && this.columnas >= 2){
                 this.array[fila] = new Array(this.columnas);
             }else{
-                alert("Las filas mínimas son 2 y las columnas mínismas son 3");
+                alert("El tablero mínimo puede ser 2x2");
                 alert("Presiona F5 para reiniciar juego");
             }
             for (let columna = 0; columna < this.columnas; columna++) {
@@ -40,8 +40,10 @@ class Tablero{
         let contador;
         let posFila;
         let posColumna;
+        let casillasLlenas = 0;
         let array_numeros =[1,2,3,4,5,6,7,8,9,10];
-        for (let i = 0; i <= this.filas; i++) {
+        let i = 0;
+        while(casillasLlenas < (this.filas * this.columnas)){
             contador = 0;
             while(contador < 2){
                 posFila=Math.floor(Math.random()*this.filas);
@@ -52,12 +54,18 @@ class Tablero{
                         posColumna = Math.floor(Math.random()*this.columnas);
                     }
                     this.array[posFila][posColumna] = array_numeros[i];
+                    casillasLlenas++;
                     contador++;
                 }else{
                     this.array[posFila][posColumna] = array_numeros[i];
+                    casillasLlenas++;
                     contador++;
                 }
-            }     
+            }   
+            i++;
+            if (i == 10) {
+                i = 0;
+            }
         }
         this.pintarTablero(); 
     }
