@@ -21,6 +21,21 @@ class Tablero{
             }
         }
     }
+    pintarTablero(){
+        document.write("<h1>" + "Memorium" + "</h1>");
+        document.write('<table>');
+
+        for (let i = 0; i < this.filas; i++) {
+            document.write('<tr>');
+
+            for (let j = 0; j < this.columnas; j++) {
+                document.write(`<td>${this.array[i][j]}</td>`);
+            }
+
+            document.write('</tr>');
+        }
+        document.write('</table>');
+    }
     iniciarMemorium(){
         let contador;
         let posFila;
@@ -42,25 +57,11 @@ class Tablero{
                     this.array[posFila][posColumna] = array_numeros[i];
                     contador++;
                 }
-            }       
+            }     
         }
-    }
-    pintarTablero(){
-        document.write("<h1>" + "Memorium" + "</h1>");
-        document.write('<table>');
-
-        for (let i = 0; i < this.filas; i++) {
-            document.write('<tr>');
-
-            for (let j = 0; j < this.columnas; j++) {
-                document.write(`<td>${this.array[i][j]}</td>`);
-            }
-
-            document.write('</tr>');
-        }
-        document.write('</table>');
+        this.pintarTablero(); 
     }
 }
 
 let tablero1 = new Tablero(prompt("Numero de filas:"),prompt("Columnas:"));
-tablero1.pintarTablero();
+tablero1.iniciarMemorium();
