@@ -33,7 +33,7 @@ class Tablero{
                 posColumna = Math.floor(Math.random()*this.columnas);
                 if (this.array[posFila][posColumna] != '') {
                     while (this.array[posFila][posColumna] != '') {
-                        posFila=Math.floor(Math.random()*filas);
+                        posFila=Math.floor(Math.random()*this.filas);
                         posColumna = Math.floor(Math.random()*this.columnas);
                     }
                     this.array[posFila][posColumna] = array_numeros[i];
