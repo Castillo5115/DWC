@@ -7,6 +7,7 @@ class Tablero{
 
     }
     crearArray() {
+        let casillas = this.filas * this.columnas;
         this.array = [];
     
         for (let fila = 0; fila < this.filas; fila++) {
@@ -35,6 +36,7 @@ class Tablero{
             document.write('</tr>');
         }
         document.write('</table>');
+        document.write("<h3>" + "by Adrián Castillo López" + "</h3>");
     }
     iniciarMemorium(){
         let contador;
