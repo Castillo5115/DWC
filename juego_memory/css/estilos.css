@@ -17,4 +17,5 @@ td{
 h1{
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0.1em 0.1em 0.01em rgb(110, 110, 110);
 }

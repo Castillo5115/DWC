@@ -6,42 +6,37 @@ class Tablero{
         this.crearArray();
 
     }
-    crearArray() {
+    crearArray() { // Esta función crea el array con las condiciones de uso para el usuario, y en caso de que no se cumplan las condiciones saltará una alerta.
         let compatible = this.filas * this.columnas;
-        if (compatible % 2 == 0) {
+        if (compatible % 2 == 0) { // Condicion para sacar número de celdas pares.
             this.array = [];    
             for (let fila = 0; fila < this.filas; fila++) {
-                if(this.filas >= 2 && this.columnas >= 2){
                     this.array[fila] = new Array(this.columnas);
-                }else{
-                    alert("El tablero mínimo puede ser 2x2");
-                    alert("Presiona F5 para reiniciar juego");
-                }
                 for (let columna = 0; columna < this.columnas; columna++) {
                     this.array[fila][columna] = '';
                 }
             } 
-        }else{
+        }else{ // Alertas que saltan cuando hay fallo del usuario.
             alert("El número de casillas debe ser par");
             alert("Presiona F5 para reiniciar juego");
         }
         
     }
-    pintarTablero(){
+    pintarTablero(){ // Esta funcion pinta el tablero de juego con las filas y las columnas que le introduzca el usuario.
         document.write("<h1>" + "Memorium" + "</h1>");
         document.write('<table>');
 
         for (let i = 0; i < this.filas; i++) {
             document.write('<tr>');
 
-            for (let j = 0; j < this.columnas; j++) {
+            for (let j = 0; j < this.columnas; j++) {               
                 document.write(`<td>${this.array[i][j]}</td>`);
             }
 
             document.write('</tr>');
         }
     }
-    iniciarMemorium(){
+    iniciarMemorium(){ // Esta funcion genera parejas de números. Cada pareja se inserta en el array en posiciones aleatorias.
         let contador;
         let posFila;
         let posColumna;
@@ -50,11 +45,11 @@ class Tablero{
         let i = 0;
         while(casillasLlenas < (this.filas * this.columnas)){
             contador = 0;
-            while(contador < 2){
-                posFila=Math.floor(Math.random()*this.filas);
-                posColumna = Math.floor(Math.random()*this.columnas);
-                if (this.array[posFila][posColumna] != '') {
-                    while (this.array[posFila][posColumna] != '') {
+            while(contador < 2){ // Bucle que cuenta el número de veces que se repite un número.
+                posFila=Math.floor(Math.random()*this.filas);//Genera posición de fila aleatoria.
+                posColumna = Math.floor(Math.random()*this.columnas);//Genera posición de columna aleatoria. 
+                if (this.array[posFila][posColumna] != '') {// Condición en caso de encontrar una posición que tenga un valor.
+                    while (this.array[posFila][posColumna] != '') {// Bucle que busca una posición vacia.
                         posFila=Math.floor(Math.random()*this.filas);
                         posColumna = Math.floor(Math.random()*this.columnas);
                     }
@@ -68,11 +63,11 @@ class Tablero{
                 }
             }   
             i++;
-            if (i == 10) {
+            if (i == 10) { // En el caso del que se llenen el tablero con todos los números del array, la cuenta volverá a cero para seguir llenando casillas.
                 i = 0;
             }
         }
-        this.pintarTablero(); 
+        this.pintarTablero(); // Llama a pintar tablero para pintar el tablero con todas las parejas hechas.
     }
 }
 
