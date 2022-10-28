@@ -22,20 +22,20 @@ class Tablero{
         let posFila;
         let posColumna;
         let array_numeros =[1,2,3,4,5,6,7,8,9,10];
-        for (let i = 0; i <= filas; i++) {
+        for (let i = 0; i <= this.filas; i++) {
             contador = 0;
             while(contador < 2){
-                posFila=Math.floor(Math.random()*filas);
-                posColumna = Math.floor(Math.random()*columnas);
-                if (array[posFila][posColumna] != '') {
-                    while (array[posFila][posColumna] != '') {
+                posFila=Math.floor(Math.random()*this.filas);
+                posColumna = Math.floor(Math.random()*this.columnas);
+                if (this.array[posFila][posColumna] != '') {
+                    while (this.array[posFila][posColumna] != '') {
                         posFila=Math.floor(Math.random()*filas);
-                        posColumna = Math.floor(Math.random()*columnas);
+                        posColumna = Math.floor(Math.random()*this.columnas);
                     }
-                    array[posFila][posColumna] = array_numeros[i];
+                    this.array[posFila][posColumna] = array_numeros[i];
                     contador++;
                 }else{
-                    array[posFila][posColumna] = array_numeros[i];
+                    this.array[posFila][posColumna] = array_numeros[i];
                     contador++;
                 }
             }       
