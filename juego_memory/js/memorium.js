@@ -10,8 +10,12 @@ class Tablero{
         this.array = [];
     
         for (let fila = 0; fila < this.filas; fila++) {
-            this.array[fila] = new Array(this.columnas);
-
+            if (this.filas >= 2 && this.columnas >= 3) {
+                this.array[fila] = new Array(this.columnas);
+            }else{
+                alert("Las filas mínimas son 2 y las columnas mínismas son 3");
+                alert("Presiona F5 para reiniciar juego");
+            }
             for (let columna = 0; columna < this.columnas; columna++) {
                 this.array[fila][columna] = '';
             }
