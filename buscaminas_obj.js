@@ -20,16 +20,17 @@ document.addEventListener("DOMContentLoaded", function(event){
             }
         }
     
-        dibujarTablero() {
+        dibujarTableroDOM() {
             // Creamos el tablero en html
             let table = document.createElement("table");
             document.body.appendChild(table);
             for (let i = 0; i < this.filas; i++) {
-                let tr = document.createElement('tr');
-                table.appendChild(tr);
+                let fila = document.createElement('tr');
+                table.appendChild(fila);
                 for (let j = 0; j < this.columnas; j++) {
-                   let td = document.createElement('td');
-                   tr.appendChild(td);
+                   let columna = document.createElement('td');
+                   columna.id = ("id", "f"+i+"_c"+j);
+                   fila.appendChild(columna);
                 }
     
             
@@ -105,6 +106,6 @@ document.addEventListener("DOMContentLoaded", function(event){
     
     let buscaminas1 = new Buscaminas(prompt('¿Cuantas filas quieres usar?'), prompt('¿Cuantas columnas quieres?'), prompt('¿Cuantas minas quieres?'));
     console.log(buscaminas1.arrayTablero);
-    buscaminas1.dibujarTablero();
+    buscaminas1.dibujarTableroDOM();
 });
 
