@@ -19,11 +19,12 @@ document.addEventListener("DOMContentLoaded", function(event){
                 }
             }
         }
-    
+         
         dibujarTableroDOM() {
             // Creamos el tablero en html
             let table = document.createElement("table");
             document.body.appendChild(table);
+            
             for (let i = 0; i < this.filas; i++) {
                 let fila = document.createElement('tr');
                 table.appendChild(fila);
@@ -31,10 +32,17 @@ document.addEventListener("DOMContentLoaded", function(event){
                    let columna = document.createElement('td');
                    columna.id = ("id", "f"+i+"_c"+j);
                    fila.appendChild(columna);
+                   columna.dataset.fila = i;
+                   columna.dataset.columna = j;
+                   columna.addEventListener('click', this.despejar);
                 }
     
             
             }
+        }
+
+        despejar(){
+            this.setAttribute("style","background-color: red;");
         }
     
         modificarFilas(nuevasFilas) {
