@@ -34,15 +34,45 @@ document.addEventListener("DOMContentLoaded", function(event){
                    fila.appendChild(columna);
                    columna.dataset.fila = i;
                    columna.dataset.columna = j;
-                   columna.addEventListener('click', this.despejar);
+                   columna.addEventListener('contextmenu', this.marcar);
                 }
     
             
             }
         }
 
-        despejar(){
-            this.setAttribute("style","background-color: red;");
+        marcar(){
+            // Utilizando DOM
+            let imagenBandera = document.createElement("img");
+            imagenBandera.src = "img/flag.png";
+            imagenBandera.style.height = "50px";
+            this.appendChild(imagenBandera);
+
+            let imagenInterrogante = document.createElement("img");
+            imagenInterrogante.src = "img/interrogante.png";
+            imagenInterrogante.style.height = "50px";
+            this.appendChild(imagenInterrogante);
+
+            switch(this.childrenNode.src){
+                case "":
+                    this.childrenNode[0].src;
+                    break;
+            }
+
+            //Utilizando clases de css.
+            // switch(this.className){
+            //     case "":
+            //         this.className = "bandera";
+            //         break;
+            //     case "bandera":
+            //         this.className = "interrogante";
+            //         break;
+            //     case "interrogante":
+            //         this.className = "";
+            //         break;
+                
+            // }
+            
         }
     
         modificarFilas(nuevasFilas) {
