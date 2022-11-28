@@ -8,11 +8,15 @@ table
 
 }
 td{
-    padding: 10px;
+
     text-align: center;
     border: 1px solid black;
     padding: 30px;
+    background-color: lightgrey;
+    color: lightgrey;
 }
+
+
 
 .bandera{
     background-color: red;
