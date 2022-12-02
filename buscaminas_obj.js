@@ -150,19 +150,53 @@ class Buscaminas extends Tablero {
         let columna = celda.dataset.columna;
 
         let valorCelda = this.arrayTablero[fila][columna];
-        let esNumero = (this.arrayTablero[celda.dataset.fila][columna] != 'MINA' && this.arrayTablero[fila][columna] != 0);
-        let esBomba = (this.arrayTablero[fila][columna] == "MINA");
+        let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
+        let esCero = (valorCelda == 0);
+        let esBomba = (valorCelda == 'MINA');
+
+        let bombaSeleccionadaMal;
+
+        let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
+        
+        let arrayFilas;
+        let arrayColumnas; 
 
         if (esNumero) {
-            celda.innerHTML = this.arrayTablero[fila][columna];
+            celda.innerHTML = valorCelda;
             celda.removeEventListener('click', this.despejar.bind(this));
             celda.removeEventListener('contextmenu', this.marcar.bind(this));
-        }else if(esBomba){
-            celda.innerHTML = valorCelda;
+           
+        } else if (esBomba) {
+            
+            arrayFilas = celda.parentNode.parentNode.childNodes;
+            for (let tr of arrayFilas) {
+                arrayColumnas = tr.childNodes;
+                for (let td of arrayColumnas){
+                    td.removeEventListener('click', this.despejar.bind(this));
+                    td.removeEventListener('contextmenu', this.marcar.bind(this));
+
+                    fila = td.dataset.fila;
+                    columna = td.dataset.columna;
+                    valorCelda = this.arrayTablero[fila][columna]
+                    if (td.lastChild != null){
+                        bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
+                    
+                        if (bombaSeleccionadaMal){
+                            td.lastChild.src = "";
+                            td.style.backgroundColor = 'red';
+                            td.innerHTML = valorCelda;
+                        } else if (valorCelda == 'MINA') {
+                            td.innerHTML = valorCelda;
+                        }
+                    } else if (valorCelda == 'MINA') {
+                            td.innerHTML = valorCelda;
+                    }
+                }
+            }
+            alert(`¡HAS PERDIDO!`);
+        }else if(esCero){
+            alert("Fila: " + fila + "  Columna: " + columna);
         }
-
-
-
     };
 
     marcar(elEvento) {
@@ -181,34 +215,7 @@ class Buscaminas extends Tablero {
             celda.lastChild.src = "";
         } else if (celda.lastChild.src == "file:///home/horabaixa/Documentos/DWC") {
             celda.lastChild.src == "img/flag.png";
-        }
-
-        // Utilizando los formatos UNICODE de JS
-        /*
-        if (this.innerHTML == "") {
-            this.innerHTML = "\uD83D\uDEA9";
-        } else if (this.innerHTML == "\uD83D\uDEA9") {
-            this.innerHTML = "\u2754";
-        } else if(this.innerHTML == "\u2754") {
-            this.innerHTML = "";
-        };
-        */
-
-        // Utilizando clases en el .css
-        /*
-         switch (this.className) {
-            case "":
-                this.className = "bandera";
-                break;
-            case "bandera":
-                this.className = "interrogante";
-                break;
-            default:
-                this.className = "";
-                break;
-         }
-        */
-            
+        }            
     }
 }
 
