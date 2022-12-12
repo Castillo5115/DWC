@@ -153,8 +153,8 @@ class Buscaminas extends Tablero {
 
         let valorCelda = this.arrayTablero[fila][columna];
         let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
-        let esCero = (valorCelda == 0);
         let esBomba = (valorCelda == 'MINA');
+        let esVacio = (valorCelda == 0);
 
         let bombaSeleccionadaMal;
 
@@ -196,26 +196,35 @@ class Buscaminas extends Tablero {
                 }
             }
             alert(`¡HAS PERDIDO!`);
-        }else if(esCero){
-            let numMinasAlrededor;
-            for (let fila = 0; fila < this.filas; fila++) {
-                for (let columna = 0; columna < this.columnas; columna++) {
-                    numMinasAlrededor = 0;
-                    if (this.arrayTablero[fila][columna] != 'MINA') {
-                        for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
-                            if (cFila >= 0 && cFila < this.filas) {
-                                for (let cColumna = columna - 1; cColumna <= columna + 1; cColumna++) {
-                                    if (cColumna >= 0 && cColumna < this.columnas &&
-                                        this.arrayTablero[cFila][cColumna] == 'MINA') {
-                                        numMinasAlrededor++;
-                                    }
-                                }
-                            }
-                            this.arrayTablero[fila][columna] = numMinasAlrededor;
-                        }
-                    }
-                }
+        }else if(valorCelda ==  0){
+
+            for (let i = fila - 1; i <= fila + 1; i++) {
+                for (let j = columna - 1 ; j <= columna + 1; j++) {
+                    let celdaComprobar = document.getElementById(`f${i}_c${j}`);
+                    console.log(this.despejar(celdaComprobar));                        
+                }             
             }
+
+            // let numMinasAlrededor;
+
+            // for (let fila = 0; fila < this.filas; fila++) {
+            //     for (let columna = 0; columna < this.columnas; columna++) {
+            //         numMinasAlrededor = 0;
+            //         if (this.arrayTablero[fila][columna] != 'MINA') {
+            //             for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
+            //                 if (cFila >= 0 && cFila < this.filas) {
+            //                     for (let cColumna = columna - 1; cColumna <= columna + 1; cColumna++) {
+            //                         if (cColumna >= 0 && cColumna < this.columnas &&
+            //                             this.arrayTablero[cFila][cColumna] == 'MINA') {
+            //                             numMinasAlrededor++;
+            //                         }
+            //                     }
+            //                 }
+            //                 this.arrayTablero[fila][columna] = numMinasAlrededor;
+            //             }
+            //         }
+            //     }
+            // }
         }
     };
 
