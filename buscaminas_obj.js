@@ -196,12 +196,13 @@ class Buscaminas extends Tablero {
                 }
             }
             alert(`¡HAS PERDIDO!`);
-        }else if(valorCelda ==  0){
+        }else if(esVacio){
 
             for (let i = fila - 1; i <= fila + 1; i++) {
                 for (let j = columna - 1 ; j <= columna + 1; j++) {
                     let celdaComprobar = document.getElementById(`f${i}_c${j}`);
-                    console.log(this.despejar(celdaComprobar));                        
+                    console.log(celdaComprobar);
+
                 }             
             }
 
