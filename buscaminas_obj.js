@@ -50,6 +50,7 @@ class Tablero {
                 columna.id = `f${i}_c${j}`;
                 columna.dataset.fila = i;
                 columna.dataset.columna = j;
+                columna.dataset.despejado = false;
                 fila.appendChild(columna);
             }
         }
@@ -146,10 +147,14 @@ class Buscaminas extends Tablero {
     despejar(elEvento) {
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
-        let fila = celda.dataset.fila;
-        fila = parseInt(fila);
-        let columna = celda.dataset.columna;
-        columna = parseInt(columna);
+        
+        this.despejarCelda(celda);
+    };
+
+    despejarCelda(celda){
+        let fila = parseInt(celda.dataset.fila);
+        let columna = parseInt(celda.dataset.columna);
+        celda.dataset.despejado = true;
 
         let valorCelda = this.arrayTablero[fila][columna];
         let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
@@ -161,7 +166,10 @@ class Buscaminas extends Tablero {
         let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
         
         let arrayFilas;
-        let arrayColumnas; 
+        let arrayColumnas;
+        let celdaNueva;
+
+        let celdaComprobar = false;
 
         if (esNumero) {
             celda.innerHTML = valorCelda;
@@ -197,37 +205,22 @@ class Buscaminas extends Tablero {
             }
             alert(`¡HAS PERDIDO!`);
         }else if(esVacio){
-
-            for (let i = fila - 1; i <= fila + 1; i++) {
-                for (let j = columna - 1 ; j <= columna + 1; j++) {
-                    let celdaComprobar = document.getElementById(`f${i}_c${j}`);
-                    console.log(celdaComprobar);
-
-                }             
+            
+            for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
+                if (cFila >= 0 && cFila < this.filas) {
+                    for (let cColumna = columna - 1; cColumna <= columna + 1; cColumna++) {
+                        if (cColumna >= 0 && cColumna < this.columnas && !estaDespejado) {
+                            celdaNueva = document.getElementById(`f${cFila}_c${cColumna}`);
+                            console.log(`f${cFila}_c${cColumna}`);
+                        }
+                    }
+                }
+                
             }
 
-            // let numMinasAlrededor;
 
-            // for (let fila = 0; fila < this.filas; fila++) {
-            //     for (let columna = 0; columna < this.columnas; columna++) {
-            //         numMinasAlrededor = 0;
-            //         if (this.arrayTablero[fila][columna] != 'MINA') {
-            //             for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
-            //                 if (cFila >= 0 && cFila < this.filas) {
-            //                     for (let cColumna = columna - 1; cColumna <= columna + 1; cColumna++) {
-            //                         if (cColumna >= 0 && cColumna < this.columnas &&
-            //                             this.arrayTablero[cFila][cColumna] == 'MINA') {
-            //                             numMinasAlrededor++;
-            //                         }
-            //                     }
-            //                 }
-            //                 this.arrayTablero[fila][columna] = numMinasAlrededor;
-            //             }
-            //         }
-            //     }
-            // }
         }
-    };
+    }
 
     marcar(elEvento) {
         let evento = elEvento || window.event;
