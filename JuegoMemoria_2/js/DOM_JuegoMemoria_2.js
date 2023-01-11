@@ -77,16 +77,33 @@ class Memorium extends Tablero{
     }
 
     pintarTablero(){
-        let titulo = document.createElement('h1');
-        let table = document.createElement('table');
-        let tr = document.createElement('tr');
-        let td = document.createElement('td');
-        tr.appendChild(table);
-        td.appendChild(tr);
-        console.log();
+        let tabla = document.createElement('table');
+        let fila;
+        let columna;
+
+        for (let i = 0; i < this.filas; i++) {
+            fila = document.createElement('tr');
+            tabla.appendChild(fila);
+
+            for (let j = 0; j < this.columnas; j++) {
+                columna = document.createElement('td');
+                columna.id = `f${i}_c${j}`;
+                columna.dataset.fila = i;
+                columna.dataset.columna = j;
+                columna.dataset.despejado = false;
+                fila.appendChild(columna);
+            }
+        }
+
+        document.body.appendChild(tabla);
+    }
+
+    colocarParejas(){
+        let celda ;
     }
 }
 window.onload = function(){
-    let memorium1 = new Memorium();
+    let memorium1 = new Memorium(prompt("Numero de filas:"),prompt("Columnas:"));
     memorium1.pintarTablero();
+    memorium1.colocarParejas();
 }

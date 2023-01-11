@@ -4,7 +4,7 @@ table{
 }
 td{
     border: 1px solid black;
-    padding: 20px;
+    padding: 50px;
     font-family: Arial, Helvetica, sans-serif;
 }
 td:hover{
