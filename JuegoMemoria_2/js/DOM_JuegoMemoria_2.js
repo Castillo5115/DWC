@@ -99,7 +99,36 @@ class Memorium extends Tablero{
     }
 
     colocarParejas(){
-        let celda ;
+        let contador;
+        let posFila;
+        let posColumna;
+        let casillasLlenas = 0;
+        let array_numeros =[1,2,3,4,5,6,7,8,9,10];
+        let i = 0;
+        while(casillasLlenas < (this.filas * this.columnas)){
+            contador = 0;
+            while(contador < 2){ // Bucle que cuenta el número de veces que se repite un número.
+                posFila=Math.floor(Math.random()*this.filas);//Genera posición de fila aleatoria.
+                posColumna = Math.floor(Math.random()*this.columnas);//Genera posición de columna aleatoria. 
+                if (this.array[posFila][posColumna] != '') {// Condición en caso de encontrar una posición que tenga un valor.
+                    while (this.array[posFila][posColumna] != '') {// Bucle que busca una posición vacia.
+                        posFila=Math.floor(Math.random()*this.filas);
+                        posColumna = Math.floor(Math.random()*this.columnas);
+                    }
+                    this.array[posFila][posColumna] = array_numeros[i];
+                    casillasLlenas++;
+                    contador++;
+                }else{
+                    this.array[posFila][posColumna] = array_numeros[i];
+                    casillasLlenas++;
+                    contador++;
+                }
+            }   
+            i++;
+            if (i == 10) { // En el caso del que se llenen el tablero con todos los números del array, la cuenta volverá a cero para seguir llenando casillas.
+                i = 0;
+            }
+        }
     }
 }
 window.onload = function(){
