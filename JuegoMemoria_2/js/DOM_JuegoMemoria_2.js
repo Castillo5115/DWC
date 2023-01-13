@@ -74,37 +74,45 @@ class Tablero{
 class Memorium extends Tablero{
     constructor(filas, columnas){
         super(filas, columnas);
+        let tabla;
+        let fila;
+        let celda;
     }
 
     pintarTablero(){
-        let tabla = document.createElement('table');
-        let fila;
-        let columna;
+        this.tabla = document.createElement('table');
+        
 
         for (let i = 0; i < this.filas; i++) {
-            fila = document.createElement('tr');
-            tabla.appendChild(fila);
+            this.fila = document.createElement('tr');
+            this.tabla.appendChild(this.fila);
 
             for (let j = 0; j < this.columnas; j++) {
-                columna = document.createElement('td');
-                columna.id = `f${i}_c${j}`;
-                columna.dataset.fila = i;
-                columna.dataset.columna = j;
-                columna.dataset.despejado = false;
-                fila.appendChild(columna);
+                this.columna = document.createElement('td');
+                this.columna.id = `f${i}_c${j}`;
+                this.columna.dataset.fila = i;
+                this.columna.dataset.columna = j;
+                this.columna.dataset.despejado = false;
+                this.fila.appendChild(this.columna);
             }
         }
-
-        document.body.appendChild(tabla);
+        document.body.appendChild(this.tabla);
     }
 
     colocarParejas(){
+        
+        let lista_tr = this.tabla.childNodes;
+        let lista_td;
+        let tr;
+        let td;
+        
         let contador;
         let posFila;
         let posColumna;
         let casillasLlenas = 0;
         let array_numeros =[1,2,3,4,5,6,7,8,9,10];
         let i = 0;
+
         while(casillasLlenas < (this.filas * this.columnas)){
             contador = 0;
             while(contador < 2){ // Bucle que cuenta el número de veces que se repite un número.
@@ -123,16 +131,28 @@ class Memorium extends Tablero{
                     casillasLlenas++;
                     contador++;
                 }
+                
             }   
             i++;
             if (i == 10) { // En el caso del que se llenen el tablero con todos los números del array, la cuenta volverá a cero para seguir llenando casillas.
                 i = 0;
             }
         }
+        // for (let i = 0; i < lista_tr.length; i++) {
+        //     tr = lista_tr[i];
+        //     lista_td = tr.childNodes;
+        //     for (let j = 0; j < lista_td.length; j++) {
+        //         td = lista_td[j];
+        //         td.innerHTML = this.array[i][j];
+        //         console.log(td);
+        //     }
+        // }
+
     }
 }
 window.onload = function(){
     let memorium1 = new Memorium(prompt("Numero de filas:"),prompt("Columnas:"));
     memorium1.pintarTablero();
     memorium1.colocarParejas();
+    
 }

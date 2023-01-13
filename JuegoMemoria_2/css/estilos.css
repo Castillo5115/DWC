@@ -7,9 +7,7 @@ td{
     padding: 50px;
     font-family: Arial, Helvetica, sans-serif;
 }
-td:hover{
-    background-color: aqua;
-}
+
 td{
     background-color: rgb(183, 241, 241);
     color: rgb(0, 0, 0);
