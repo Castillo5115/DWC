@@ -75,8 +75,7 @@ class Memorium extends Tablero{
     constructor(filas, columnas){
         super(filas, columnas);
         let tabla;
-        let fila;
-        let celda;
+        this.pintarTablero();
     }
 
     pintarTablero(){
@@ -97,6 +96,15 @@ class Memorium extends Tablero{
             }
         }
         document.body.appendChild(this.tabla);
+
+        let celda;
+        for (let i = 0; i < this.filas; i++) {
+            for (let j = 0; j < this.columnas; j++) {
+                celda = document.getElementById(`f${i}_c${j}`);
+                celda.addEventListener('click', this.despejar.bind(this));
+            }
+        }
+
     }
 
     colocarParejas(){
@@ -138,6 +146,7 @@ class Memorium extends Tablero{
                 i = 0;
             }
         }
+        console.log(this.array);
         // for (let i = 0; i < lista_tr.length; i++) {
         //     tr = lista_tr[i];
         //     lista_td = tr.childNodes;
@@ -149,10 +158,31 @@ class Memorium extends Tablero{
         // }
 
     }
+
+    despejar(elEvento){
+        let evento = elEvento || window.event;
+        let celda = evento.currentTarget;
+
+        this.despejarCelda(celda);
+    }
+
+    despejarCelda(celda){
+        let fila = parseInt(celda.dataset.fila);
+        let columna = parseInt(celda.dataset.columna);
+
+        let valorCelda = this.array[fila][columna];
+        let comprobarCelda = false;
+        
+        let parejaSeleccionadaMal;
+        console.log(celda);
+
+        celda.innerHTML = valorCelda;
+
+    }
+
 }
 window.onload = function(){
     let memorium1 = new Memorium(prompt("Numero de filas:"),prompt("Columnas:"));
-    memorium1.pintarTablero();
     memorium1.colocarParejas();
     
 }
