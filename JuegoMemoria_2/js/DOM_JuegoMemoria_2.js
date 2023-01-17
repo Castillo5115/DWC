@@ -169,14 +169,26 @@ class Memorium extends Tablero{
     despejarCelda(celda){
         let fila = parseInt(celda.dataset.fila);
         let columna = parseInt(celda.dataset.columna);
-
         let valorCelda = this.array[fila][columna];
-        let comprobarCelda = false;
-        
-        let parejaSeleccionadaMal;
-        console.log(celda);
+        let primerClick;
+        let segundoClick;
+        let clicks = 1;
 
-        celda.innerHTML = valorCelda;
+        if (celda.textValue == null) {
+            celda.dataset.despejado = true;
+            celda.innerHTML = valorCelda;
+        }
+
+        switch(clicks){
+            case 1:
+                primerClick = document.getElementById(`f${fila}_c${columna}`);
+                console.log(primerClick);
+                clicks++;
+                break;
+            case 2:
+                console.log('Mundo');
+                break;
+        }
 
     }
 
