@@ -172,22 +172,15 @@ class Memorium extends Tablero{
         let valorCelda = this.array[fila][columna];
         let primerClick;
         let segundoClick;
-        let clicks = 1;
 
-        if (celda.textValue == null) {
+        
+
+        if (celda.dataset.despejado != true) {
             celda.dataset.despejado = true;
             celda.innerHTML = valorCelda;
-        }
-
-        switch(clicks){
-            case 1:
-                primerClick = document.getElementById(`f${fila}_c${columna}`);
-                console.log(primerClick);
-                clicks++;
-                break;
-            case 2:
-                console.log('Mundo');
-                break;
+            console.log(celda.id);
+        }else if(celda.dataset.despejado == true){
+            console.log('Hola');
         }
 
     }
