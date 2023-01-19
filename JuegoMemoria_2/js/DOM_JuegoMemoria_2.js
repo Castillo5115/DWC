@@ -75,6 +75,7 @@ class Memorium extends Tablero{
     constructor(filas, columnas){
         super(filas, columnas);
         let tabla;
+        let contador = 0;
         let click1;
         let click2;
         this.pintarTablero();
@@ -149,16 +150,6 @@ class Memorium extends Tablero{
             }
         }
         console.log(this.array);
-        // for (let i = 0; i < lista_tr.length; i++) {
-        //     tr = lista_tr[i];
-        //     lista_td = tr.childNodes;
-        //     for (let j = 0; j < lista_td.length; j++) {
-        //         td = lista_td[j];
-        //         td.innerHTML = this.array[i][j];
-        //         console.log(td);
-        //     }
-        // }
-
     }
 
     despejar(elEvento){
@@ -172,43 +163,32 @@ class Memorium extends Tablero{
         let columna = parseInt(celda.dataset.columna);
         let valorCelda = this.array[fila][columna];
 
-        let estaDespejado = (celda.dataset.despejado == true);
+        this.contador++;
 
-        if (celda.dataset.despejado != true) {
+        if (this.contador == 1){
+            this.click1 = valorCelda;
             celda.innerHTML = valorCelda;
             celda.dataset.despejado = true;
-            this.click1 = valorCelda;
-            celda.removeEventListener('click', this.despejar.bind(this));
-        }else{
-            console.log('hola');
+        }else if (this.contador == 2){
+            this.click2 = valorCelda;
+            celda.innerHTML = valorCelda;
+            celda.dataset.despejado = true;
         }
 
-
-
-        // for (let tr of arrayFilas) {
-        //     arrayColumnas = tr.childNodes;
-        //     for (let td of arrayColumnas){
-        //         td.removeEventListener('click', this.despejar.bind(this));
-        //         td.removeEventListener('contextmenu', this.marcar.bind(this));
-
-        //         fila = td.dataset.fila;
-        //         columna = td.dataset.columna;
-        //         valorCelda = this.arrayTablero[fila][columna];
-        //         if (td.lastChild != null){
-        //             bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
-                
-        //             if (bombaSeleccionadaMal){
-        //                 td.lastChild.src = "";
-        //                 td.style.backgroundColor = 'red';
-        //                 td.innerHTML = valorCelda;
-        //             } else if (valorCelda == 'MINA') {
-        //                 td.innerHTML = valorCelda;
-        //             }
-        //         } else if (valorCelda == 'MINA') {
-        //                 td.innerHTML = valorCelda;
-        //         }
-        //     }}
-
+        if (this.click1 != null && this.click2 != null) {
+            if(this.click1 == this.click2){
+                this.contador = 0;
+            }else{
+                for (let i = 0; i < this.filas; i++) {
+                    for (let j = 0; j < this.columnas; j++) {
+                        celda = getElementById(`f${i}_c${j}`);
+                        celda.innerHTML = '';
+                        celda.dataset.despejado = false;
+                    }
+                }
+                this.contador = 0;                  
+            }   
+        }
 
     }
 
