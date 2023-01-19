@@ -74,10 +74,10 @@ class Tablero{
 class Memorium extends Tablero{
     constructor(filas, columnas){
         super(filas, columnas);
-        let tabla;
-        let contador = 0;
-        let click1;
-        let click2;
+        this.tabla;
+        this.contador = 0;
+        this.click1;
+        this.click2;
         this.pintarTablero();
     }
 
