@@ -75,6 +75,8 @@ class Memorium extends Tablero{
     constructor(filas, columnas){
         super(filas, columnas);
         let tabla;
+        let click1;
+        let click2;
         this.pintarTablero();
     }
 
@@ -162,7 +164,6 @@ class Memorium extends Tablero{
     despejar(elEvento){
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
-
         this.despejarCelda(celda);
     }
 
@@ -170,18 +171,44 @@ class Memorium extends Tablero{
         let fila = parseInt(celda.dataset.fila);
         let columna = parseInt(celda.dataset.columna);
         let valorCelda = this.array[fila][columna];
-        let primerClick;
-        let segundoClick;
 
-        
+        let estaDespejado = (celda.dataset.despejado == true);
 
         if (celda.dataset.despejado != true) {
-            celda.dataset.despejado = true;
             celda.innerHTML = valorCelda;
-            console.log(celda.id);
-        }else if(celda.dataset.despejado == true){
-            console.log('Hola');
+            celda.dataset.despejado = true;
+            this.click1 = valorCelda;
+            celda.removeEventListener('click', this.despejar.bind(this));
+        }else{
+            console.log('hola');
         }
+
+
+
+        // for (let tr of arrayFilas) {
+        //     arrayColumnas = tr.childNodes;
+        //     for (let td of arrayColumnas){
+        //         td.removeEventListener('click', this.despejar.bind(this));
+        //         td.removeEventListener('contextmenu', this.marcar.bind(this));
+
+        //         fila = td.dataset.fila;
+        //         columna = td.dataset.columna;
+        //         valorCelda = this.arrayTablero[fila][columna];
+        //         if (td.lastChild != null){
+        //             bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
+                
+        //             if (bombaSeleccionadaMal){
+        //                 td.lastChild.src = "";
+        //                 td.style.backgroundColor = 'red';
+        //                 td.innerHTML = valorCelda;
+        //             } else if (valorCelda == 'MINA') {
+        //                 td.innerHTML = valorCelda;
+        //             }
+        //         } else if (valorCelda == 'MINA') {
+        //                 td.innerHTML = valorCelda;
+        //         }
+        //     }}
+
 
     }
 
@@ -189,5 +216,4 @@ class Memorium extends Tablero{
 window.onload = function(){
     let memorium1 = new Memorium(prompt("Numero de filas:"),prompt("Columnas:"));
     memorium1.colocarParejas();
-    
 }
