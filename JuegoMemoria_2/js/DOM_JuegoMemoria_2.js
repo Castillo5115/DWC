@@ -78,6 +78,10 @@ class Memorium extends Tablero{
         this.contador = 0;
         this.click1;
         this.click2;
+        this.celda1;
+        this.celda2;
+        this.sonTrue = 0;
+        this.parejas = this.filas * this.columnas / 2;
         this.pintarTablero();
     }
 
@@ -166,8 +170,6 @@ class Memorium extends Tablero{
         this.celda1_id;
         this.cerlda2_id;
 
-        this.celdas;
-
         this.contador++;
 
         if (this.contador == 1){
@@ -175,35 +177,53 @@ class Memorium extends Tablero{
             this.celda1_id = celda.id;
             this.click1_id = celda.id;
             celda.innerHTML = valorCelda;
-            celda.dataset.despejado = true;
         }else if (this.contador == 2){
             this.click2 = valorCelda;
             this.click2_id = celda.id;
             this.click2_id = celda.id;
             celda.innerHTML = valorCelda;
-            celda.dataset.despejado = true;
         }
 
         if (this.click1 != null && this.click2 != null) {
             if(this.click1 == this.click2){
                 this.click1 = null;
                 this.click2 = null;
+                for (let i = 0; i < this.filas; i++) {
+                    for (let j = 0; j < this.columnas; j++) {
+                        let celdas = document.getElementById(`f${i}_c${j}`);
+                        if (celdas.id == this.click1_id) {
+                            this.celda1 = (document.getElementById(this.click1_id));
+                            this.celda1.dataset.despejado = true;
+                            this.celda1 = removeEventListener('click', this.despejar.bind(this));
+                        }
+                        if (celdas.id == this.click2_id){
+                            this.celda2 = (document.getElementById(this.click2_id));
+                            this.celda2.dataset.despejado = true;
+                            this.celda2= removeEventListener('click', this.despejar.bind(this));
+                        }
+                    }
+                }
                 this.contador = 0;
             }else{
                 this.click1 = null;
                 this.click2 = null;
                 for (let i = 0; i < this.filas; i++) {
                     for (let j = 0; j < this.columnas; j++) {
-                        this.celdas = document.getElementById(`f${i}_c${j}`);
-                        if (this.celdas.id == this.click1_id) {
-                            this.celda1 = (document.getElementById(this.click1_id))
-                            this.celda1.textContent = null;
-                            this.celda1.despejado = false;
+                        let celdas = document.getElementById(`f${i}_c${j}`);
+                        if (celdas.id == this.click1_id) {
+                            setTimeout(() => {
+                                this.celda1 = (document.getElementById(this.click1_id));
+                                this.celda1.textContent = null;
+                                this.celda1.despejado = false;
+                            }, 200);
                         }
-                        if (this.celdas.id == this.click2_id){
-                            this.celda2 = (document.getElementById(this.click2_id))
-                            this.celda2.textContent = null;
-                            this.celda2.despejado = false;
+                        if (celdas.id == this.click2_id){
+                            setTimeout(() => {
+                                this.celda2 = (document.getElementById(this.click2_id));
+                                this.celda2.textContent = null;
+                                this.celda2.despejado = false;
+                            }, 200);
+                            
                         }
                     }
                 }
@@ -211,7 +231,27 @@ class Memorium extends Tablero{
             }   
         }
 
-        
+        console.log(this.sonTrue);
+
+        for (let i = 0; i < this.filas; i++) {
+            for (let j = 0; j < this.columnas; j++) {
+                let celdas = document.getElementById(`f${i}_c${j}`);
+                if (celdas.id == this.click1_id) {
+                    
+                        this.celda1 = (document.getElementById(this.click1_id));
+                        this.celda1.textContent = null;
+                        this.celda1.despejado = false;
+                }
+                if (celdas.id == this.click2_id){
+                   
+                        this.celda2 = (document.getElementById(this.click2_id));
+                        this.celda2.textContent = null;
+                        this.celda2.despejado = false;
+
+                    
+                }
+            }
+        }
 
     }
 
