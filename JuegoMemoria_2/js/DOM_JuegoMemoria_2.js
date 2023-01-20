@@ -163,27 +163,38 @@ class Memorium extends Tablero{
         let columna = parseInt(celda.dataset.columna);
         let valorCelda = this.array[fila][columna];
 
+        this.celda1_id;
+        this.cerlda2_id;
+
         this.contador++;
 
         if (this.contador == 1){
             this.click1 = valorCelda;
+            this.celda1_id = celda.id;
+            this.click1_id = celda.id;
             celda.innerHTML = valorCelda;
             celda.dataset.despejado = true;
         }else if (this.contador == 2){
             this.click2 = valorCelda;
+            this.click2_id = celda.id;
+            this.click2_id = celda.id;
             celda.innerHTML = valorCelda;
             celda.dataset.despejado = true;
         }
 
         if (this.click1 != null && this.click2 != null) {
             if(this.click1 == this.click2){
+                this.click1 = null;
+                this.click2 = null;
                 this.contador = 0;
             }else{
+                this.click1 = null;
+                this.click2 = null;
                 for (let i = 0; i < this.filas; i++) {
                     for (let j = 0; j < this.columnas; j++) {
-                        celda = getElementById(`f${i}_c${j}`);
-                        celda.innerHTML = '';
-                        celda.dataset.despejado = false;
+                        if (celda.id == this.celda1_id) {
+                            celda.innerHTML = null;
+                        }                     
                     }
                 }
                 this.contador = 0;                  
