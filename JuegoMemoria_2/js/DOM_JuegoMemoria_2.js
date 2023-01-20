@@ -166,6 +166,8 @@ class Memorium extends Tablero{
         this.celda1_id;
         this.cerlda2_id;
 
+        this.celdas;
+
         this.contador++;
 
         if (this.contador == 1){
@@ -192,17 +194,58 @@ class Memorium extends Tablero{
                 this.click2 = null;
                 for (let i = 0; i < this.filas; i++) {
                     for (let j = 0; j < this.columnas; j++) {
-                        if (celda.id == this.celda1_id) {
-                            celda.innerHTML = null;
-                        }                     
+                        this.celdas = document.getElementById(`f${i}_c${j}`);
+                        if (this.celdas.id == this.click1_id) {
+                            this.celda1 = (document.getElementById(this.click1_id))
+                            this.celda1.textContent = null;
+                            this.celda1.despejado = false;
+                        }
+                        if (this.celdas.id == this.click2_id){
+                            this.celda2 = (document.getElementById(this.click2_id))
+                            this.celda2.textContent = null;
+                            this.celda2.despejado = false;
+                        }
                     }
                 }
                 this.contador = 0;                  
             }   
         }
 
+        
+
     }
 
+    // cronometro(){
+    //     if (centesimas < 99) {
+    //         centesimas++;
+    //         if (centesimas < 10) { centesimas = "0"+centesimas }
+    //         Centesimas.innerHTML = ":"+centesimas;
+    //     }
+    //     if (centesimas == 99) {
+    //         centesimas = -1;
+    //     }
+    //     if (centesimas == 0) {
+    //         segundos ++;
+    //         if (segundos < 10) { segundos = "0"+segundos }
+    //         Segundos.innerHTML = ":"+segundos;
+    //     }
+    //     if (segundos == 59) {
+    //         segundos = -1;
+    //     }
+    //     if ( (centesimas == 0)&&(segundos == 0) ) {
+    //         minutos++;
+    //         if (minutos < 10) { minutos = "0"+minutos }
+    //         Minutos.innerHTML = ":"+minutos;
+    //     }
+    //     if (minutos == 59) {
+    //         minutos = -1;
+    //     }
+    //     if ( (centesimas == 0)&&(segundos == 0)&&(minutos == 0) ) {
+    //         horas ++;
+    //         if (horas < 10) { horas = "0"+horas }
+    //         Horas.innerHTML = horas;
+    //     }
+    // }
 }
 window.onload = function(){
     let memorium1 = new Memorium(prompt("Numero de filas:"),prompt("Columnas:"));
