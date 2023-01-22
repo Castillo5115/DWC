@@ -80,12 +80,14 @@ class Memorium extends Tablero{
         this.click2;
         this.celda1;
         this.celda2;
+        this.contadorCeldas = 0;
+        this.contadorParejas = 0;
         this.sonTrue = 0;
         this.parejas = this.filas * this.columnas / 2;
         this.pintarTablero();
     }
 
-    pintarTablero(){
+    pintarTablero(){ //Pinta el tablero que utilizaremos para poder jugar.
         this.tabla = document.createElement('table');
         
 
@@ -114,7 +116,7 @@ class Memorium extends Tablero{
 
     }
 
-    colocarParejas(){
+    colocarParejas(){ //Crea las parejas de números y las posiciona en el tablero.
         
         let lista_tr = this.tabla.childNodes;
         let lista_td;
@@ -157,7 +159,7 @@ class Memorium extends Tablero{
     }
 
     despejar(elEvento){
-        let evento = elEvento || window.event;
+        let evento = elEvento || window.event; // Iniciar el evento.
         let celda = evento.currentTarget;
         this.despejarCelda(celda);
     }
@@ -188,26 +190,29 @@ class Memorium extends Tablero{
             if(this.click1 == this.click2){
                 this.click1 = null;
                 this.click2 = null;
-                for (let i = 0; i < this.filas; i++) {
+                for (let i = 0; i < this.filas; i++) { // Bucle que mantiene destapadas las celdas cuando són correctas
                     for (let j = 0; j < this.columnas; j++) {
                         let celdas = document.getElementById(`f${i}_c${j}`);
                         if (celdas.id == this.click1_id) {
                             this.celda1 = (document.getElementById(this.click1_id));
-                            this.celda1.dataset.despejado = true;
-                            this.celda1 = removeEventListener('click', this.despejar.bind(this));
+                            this.celda1.despejado = true;
+                            this.celda1 = removeEventListener('click', this.despejar.bind(this)); // Elimina el controlador de eventos para hacer el click en las celdas.
                         }
                         if (celdas.id == this.click2_id){
                             this.celda2 = (document.getElementById(this.click2_id));
-                            this.celda2.dataset.despejado = true;
-                            this.celda2= removeEventListener('click', this.despejar.bind(this));
+                            this.celda2.despejado = true;
+                            this.celda2= removeEventListener('click', this.despejar.bind(this)); // Elimina el controlador de eventos para hacer el click en las celdas.
                         }
                     }
                 }
+
+                this.contadorParejas++;
+
                 this.contador = 0;
             }else{
                 this.click1 = null;
                 this.click2 = null;
-                for (let i = 0; i < this.filas; i++) {
+                for (let i = 0; i < this.filas; i++) { // Bucle que tapa las celdas cuando no coinciden los números.
                     for (let j = 0; j < this.columnas; j++) {
                         let celdas = document.getElementById(`f${i}_c${j}`);
                         if (celdas.id == this.click1_id) {
@@ -228,64 +233,20 @@ class Memorium extends Tablero{
                     }
                 }
                 this.contador = 0;                  
-            }   
-        }
-
-        console.log(this.sonTrue);
-
-        for (let i = 0; i < this.filas; i++) {
-            for (let j = 0; j < this.columnas; j++) {
-                let celdas = document.getElementById(`f${i}_c${j}`);
-                if (celdas.id == this.click1_id) {
-                    
-                        this.celda1 = (document.getElementById(this.click1_id));
-                        this.celda1.textContent = null;
-                        this.celda1.despejado = false;
-                }
-                if (celdas.id == this.click2_id){
-                   
-                        this.celda2 = (document.getElementById(this.click2_id));
-                        this.celda2.textContent = null;
-                        this.celda2.despejado = false;
-
-                    
-                }
             }
         }
 
-    }
+        console.log(this.contadorParejas);
 
-    // cronometro(){
-    //     if (centesimas < 99) {
-    //         centesimas++;
-    //         if (centesimas < 10) { centesimas = "0"+centesimas }
-    //         Centesimas.innerHTML = ":"+centesimas;
-    //     }
-    //     if (centesimas == 99) {
-    //         centesimas = -1;
-    //     }
-    //     if (centesimas == 0) {
-    //         segundos ++;
-    //         if (segundos < 10) { segundos = "0"+segundos }
-    //         Segundos.innerHTML = ":"+segundos;
-    //     }
-    //     if (segundos == 59) {
-    //         segundos = -1;
-    //     }
-    //     if ( (centesimas == 0)&&(segundos == 0) ) {
-    //         minutos++;
-    //         if (minutos < 10) { minutos = "0"+minutos }
-    //         Minutos.innerHTML = ":"+minutos;
-    //     }
-    //     if (minutos == 59) {
-    //         minutos = -1;
-    //     }
-    //     if ( (centesimas == 0)&&(segundos == 0)&&(minutos == 0) ) {
-    //         horas ++;
-    //         if (horas < 10) { horas = "0"+horas }
-    //         Horas.innerHTML = horas;
-    //     }
-    // }
+        let numParejas = this.filas * this.columnas / 2;
+
+        if (this.contadorParejas == numParejas) { // En este condicional se mostrará la alerta al haber termminado el tablero entero.
+            setTimeout(() => {
+                alert('ENHORABUENA <3');
+            }, 150);
+        }
+
+    }
 }
 window.onload = function(){
     let memorium1 = new Memorium(prompt("Numero de filas:"),prompt("Columnas:"));
