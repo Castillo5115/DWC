@@ -1,0 +1,18 @@
+*{font-family: Arial, Helvetica, sans-serif};
+
+header{
+}
+
+.contenido{
+}
+
+label{
+    color: grey;
+}
+button{
+    padding-left: 68px;
+    padding-right: 68px;
+}
+input{
+    border-color: red;
+}
