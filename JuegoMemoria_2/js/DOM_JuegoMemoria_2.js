@@ -236,8 +236,6 @@ class Memorium extends Tablero{
             }
         }
 
-        console.log(this.contadorParejas);
-
         let numParejas = this.filas * this.columnas / 2;
 
         if (this.contadorParejas == numParejas) { // En este condicional se mostrará la alerta al haber termminado el tablero entero.
