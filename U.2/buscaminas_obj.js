@@ -82,11 +82,12 @@ class Buscaminas extends Tablero {
     constructor(filas, columnas, numMinas) {
         super(filas, columnas);
         this.numMinas = numMinas;
+        this.numBanderas = 0;
+        this.numCasillasADespejar = filas * columnas - numMinas;
 
         this.colocarMinas();
         this.colocarNumMinas();
-        console.log(this.arrayTablero);
-        this.arrayTablero;
+        this.dibujarTableroDOM();
     }
 
     colocarMinas() {
@@ -134,14 +135,18 @@ class Buscaminas extends Tablero {
 
         let celda;
 
+        this.despejar = this.despejar.bind(this);
+        this.marcar = this.marcar.bind(this);
+
         for (let i = 0; i < this.filas; i++) {
             for (let j = 0; j < this.columnas; j++){
                 celda = document.getElementById(`f${i}_c${j}`);
 
-                celda.addEventListener('click', this.despejar.bind(this));
-                celda.addEventListener('contextmenu', this.marcar.bind(this));
+                celda.addEventListener('click', this.despejar);
+                celda.addEventListener('contextmenu', this.marcar);
             }
         }
+        console.log(this.arrayTablero);
     }
 
     despejar(elEvento) {
@@ -149,112 +154,182 @@ class Buscaminas extends Tablero {
         let celda = evento.currentTarget;
         
         this.despejarCelda(celda);
-    };
+    }
 
-    despejarCelda(celda){
+    despejarCelda(celda) {
         let fila = parseInt(celda.dataset.fila);
         let columna = parseInt(celda.dataset.columna);
+
+        // Marcar la celda despejada
         celda.dataset.despejado = true;
+        celda.style.backgroundColor = "lightgrey";
+        celda.removeEventListener('click', this.despejar);
+        celda.removeEventListener('contextmenu', this.marcar);
+
+        // Descontar una casillas pendiente de despejar
+        this.numCasillasADespejar--;
+        console.log(this.numCasillasADespejar);
 
         let valorCelda = this.arrayTablero[fila][columna];
         let esNumero = (valorCelda != 'MINA' && valorCelda != 0);
         let esBomba = (valorCelda == 'MINA');
         let esVacio = (valorCelda == 0);
-
-        let bombaSeleccionadaMal;
-
-        let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
+        let estaDespejado;
         
-        let arrayFilas;
-        let arrayColumnas;
+    
         let celdaNueva;
-
-        let celdaComprobar = false;
 
         if (esNumero) {
             celda.innerHTML = valorCelda;
-            celda.removeEventListener('click', this.despejar.bind(this));
-            celda.removeEventListener('contextmenu', this.marcar.bind(this));
-           
-        } else if (esBomba) {
-            
-            arrayFilas = celda.parentNode.parentNode.childNodes;
-            for (let tr of arrayFilas) {
-                arrayColumnas = tr.childNodes;
-                for (let td of arrayColumnas){
-                    td.removeEventListener('click', this.despejar.bind(this));
-                    td.removeEventListener('contextmenu', this.marcar.bind(this));
 
-                    fila = td.dataset.fila;
-                    columna = td.dataset.columna;
-                    valorCelda = this.arrayTablero[fila][columna];
-                    if (td.lastChild != null){
-                        bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
-                    
-                        if (bombaSeleccionadaMal){
-                            td.lastChild.src = "";
-                            td.style.backgroundColor = 'red';
-                            td.innerHTML = valorCelda;
-                        } else if (valorCelda == 'MINA') {
-                            td.innerHTML = valorCelda;
-                        }
-                    } else if (valorCelda == 'MINA') {
-                            td.innerHTML = valorCelda;
-                    }
-                }
-            }
-            alert(`¡HAS PERDIDO!`);
-        }else if(esVacio){
+            if (this.numCasillasADespejar == 0) {
+                this.resolverTablero(celda, true);
+            }    
             
+        } else if (esBomba) {
+            this.resolverTablero(celda,false);
+
+        }else if (esVacio) {
+
             for (let cFila = fila - 1; cFila <= fila + 1; cFila++) {
                 if (cFila >= 0 && cFila < this.filas) {
                     for (let cColumna = columna - 1; cColumna <= columna + 1; cColumna++) {
-                        if (cColumna >= 0 && cColumna < this.columnas && !estaDespejado) {
-                            celdaNueva = document.getElementById(`f${cFila}_c${cColumna}`);
-                            console.log(`f${cFila}_c${cColumna}`);
+                        if (cColumna >= 0 && cColumna < this.columnas) {
+                            celdaNueva = document.getElementById(`f${cFila}_c${cColumna}`)
+                            estaDespejado = (celdaNueva.dataset.despejado == 'true');
+                            if (!estaDespejado) {
+                                console.log(`f${cFila}_c${cColumna}`);
+                                this.despejarCelda(celdaNueva);
+                            }
                         }
                     }
                 }
-                
             }
-
-
+            if (this.numCasillasADespejar == 0) {
+                this.resolverTablero(celda, true);
+            }
         }
+        
     }
 
     marcar(elEvento) {
+        // Capturar el evento y el nodo que lo generó
         let evento = elEvento || window.event;
         let celda = evento.currentTarget;
-        // Utilizando el elemento img
+
+        // Crear el elemento img
         let imagen = document.createElement('img');
-        imagen.style.height = "20px";
-        
-        if (celda.lastChild == null) {
-            imagen.src = "img/flag.png";
+        imagen.style.height = "50px";
+
+        // Definir las rutas relativas donde se encuentran las imágenes
+        let rutaBandera = 'imagenes/bandera.png';
+        let rutaInterrogante = 'imagenes/interrogante.png';
+
+        // Definir la ruta relativa de la imagen en la celda seleccionada
+        let rutaImagen;
+
+        // Buscar la ruta relativa de la imagen para la celda seleccionada
+        if (celda.lastChild != null) {
+            rutaImagen = celda.lastChild.src.split('/').slice(-2).join('/');
+        }
+
+        // Comprobar imagen en la celda
+        let noHayImagen = (celda.lastChild == null);
+        let esBandera = (rutaImagen == rutaBandera);
+        let esInterrogante = (rutaImagen == rutaInterrogante);
+
+        // Marcar las celdas con la imagen adecuada
+        if (noHayImagen) {
+            celda.removeEventListener('click', this.despejar);
+            imagen.src = "imagenes/bandera.png";
+            this.numBanderas++;
             celda.appendChild(imagen);
-        } else if (celda.lastChild.src == "file:///home/horabaixa/Documentos/DWC/img/flag.png") {
-            celda.lastChild.src = "img/interrogante.png";
-        } else if (celda.lastChild.src == "file:///home/horabaixa/Documentos/DWC/img/interrogante.png") {
-            celda.lastChild.src = "";
-        } else if (celda.lastChild.src == "file:///home/horabaixa/Documentos/DWC") {
-            celda.lastChild.src == "img/flag.png";
-        }            
+            if (this.numBanderas == this.numMinas && this.numCasillasADespejar == 0) {
+                this.resolverTablero(celda, true);
+            }
+        } else if (esBandera) {
+            celda.addEventListener('click', this.despejar);
+            celda.lastChild.src = "imagenes/interrogante.png";
+            this.numBanderas--;
+        } else if (esInterrogante) {
+            celda.removeChild(celda.lastChild);
+        }
+
+        console.log(this.numBanderas);
+
+        // Utilizando los formatos UNICODE de JS
+        /*
+        if (this.innerHTML == "") {
+            this.innerHTML = "\uD83D\uDEA9";
+        } else if (this.innerHTML == "\uD83D\uDEA9") {
+            this.innerHTML = "\u2754";
+        } else if(this.innerHTML == "\u2754") {
+            this.innerHTML = "";
+        };
+        */
+
+        // Utilizando clases en el .css
+        /*
+         switch (this.className) {
+            case "":
+                this.className = "bandera";
+                break;
+            case "bandera":
+                this.className = "interrogante";
+                break;
+            default:
+                this.className = "";
+                break;
+         }
+        */
+            
+    }
+
+    resolverTablero(celda, hasGanado) {
+        let bombaSeleccionadaMal;
+        let rutaBandera = "file:///C:/Users/belen/Documents/DWEC/ProjBuscaminas/imagenes/bandera.png";
+        let arrayFilas = celda.parentNode.parentNode.childNodes;
+        let arrayColumnas;
+
+        let fila;
+        let columna;
+        let valorCelda;
+
+
+        for (let tr of arrayFilas) {
+            arrayColumnas = tr.childNodes;
+            for (let td of arrayColumnas){
+                td.removeEventListener('click', this.despejar);
+                td.removeEventListener('contextmenu', this.marcar);
+
+                fila = td.dataset.fila;
+                columna = td.dataset.columna;
+                valorCelda = this.arrayTablero[fila][columna]
+                if (td.lastChild != null){
+                    bombaSeleccionadaMal = (td.lastChild.src ==  rutaBandera && valorCelda != 'MINA');
+                
+                    if (bombaSeleccionadaMal){
+                        td.lastChild.src = "";
+                        td.style.backgroundColor = 'red';
+                        td.innerHTML = valorCelda;
+                        hasGanado = false;
+                    } else if (valorCelda == 'MINA') {
+                        td.innerHTML = valorCelda;
+                    }
+                } else if (valorCelda == 'MINA') {
+                        td.innerHTML = valorCelda;
+                }
+            }   
+        }
+
+        if (hasGanado) {
+            alert('ENHORABUENA, HAS GANADO');
+        } else {
+            alert('LO SIENTO, HAS PERDIDO');
+        }
     }
 }
 
 window.onload = function() {
     let buscaminas1 = new Buscaminas(5, 5, 5);
-    buscaminas1.dibujarTableroDOM();
 }
-
-
-// if (this.lastChild == null) {
-//     imagen.src = "img/flag.png";
-//     this.appendChild(imagen);
-// } else if (this.lastChild.src == "http://127.0.0.1:5500/img/flag.png") {
-//     this.lastChild.src = "img/interrogante.png";
-// } else if (this.lastChild.src == "http://127.0.0.1:5500/img/interrogante.png") {
-//     this.lastChild.src = "";
-// } else if (this.lastChild.src == "http://127.0.0.1:5500/img/interrogante.png") {
-//     this.lastChild.src == "img/flag.png";
-// }
