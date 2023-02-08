@@ -4,8 +4,12 @@ const registroPacientes = new Map([
     [`YUN385`, `Benítez E. (154811767) -> Av. Argentina, 5`]
 ]);
 
-
-for(let [clave,valor] of registroPacientes){
-    console.log(clave);
-    console.log(valor);
-}
+registroPacientes.forEach(function(valor, clave){
+    // SEPARANDO LOS VALORES DEL MAPA
+        let numeroRegistro = clave;
+        let direccion = valor.split(') -> ')[1];
+        let numeroSS = valor.split(') -> ')[0].split(' (')[1];
+        let nombreCompleto = valor.split(' (')[0];
+        console.log();
+    }
+);
