@@ -10,6 +10,8 @@ registroPacientes.forEach(function(valor, clave){
         let direccion = valor.split(') -> ')[1];
         let numeroSS = valor.split(') -> ')[0].split(' (')[1];
         let nombreCompleto = valor.split(' (')[0];
-        console.log();
+        for (let i = 0; i < registroPacientes.length; i++) {
+            console.log("Hola");
+        }
     }
 );
